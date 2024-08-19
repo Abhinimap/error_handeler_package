@@ -1,7 +1,8 @@
 name: error_handeler_flutter
 description: "A new Flutter package project."
 version: 0.0.1
-homepage:
+homepage: https://github.com/Abhinimap/error_handeler_package/tree/main
+repository: https://github.com/Abhinimap/error_handeler_package
 
 environment:
   sdk: ^3.5.0
