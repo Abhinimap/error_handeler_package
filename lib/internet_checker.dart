@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
@@ -64,6 +64,7 @@ class InternetConnectionChecker {
           if (completer.isCompleted) return;
 
           if (result) {
+            debugPrint("option checked : ${_defaultCheckOptions.length-length}");
             completer.complete(true);
           } else if (length == 0) {
             completer.complete(false);
