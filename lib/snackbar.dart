@@ -21,6 +21,7 @@ factory CustomSnackbar(){
       content: Text('No Internet, Kindly check your Internet Connection'),
       backgroundColor: Colors.red,
       elevation: 2,
+      behavior: SnackBarBehavior.floating,
       margin: EdgeInsets.all(16),
       shape: RoundedRectangleBorder(),
     );
