@@ -7,8 +7,14 @@ import 'package:error_handeler_flutter/snackbar.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
+/// A class to provide error Handeling functionality
+/// This uses Http as default Scheme and showSnackbar is default set to True
+/// When APi call through get method of this class and internet is not available , A sncakbar will appear on the screen
+/// Call init method of this class after Materialapp is Initialized and pass parameter to configure as per your choice 
 class ErrorHandelerFlutter {
+  /// default set to True
   bool useHttp = true;
+  /// default set to True
   bool showSnackbar = true;
 
   /// by default it will use http and show snackbar
@@ -16,7 +22,17 @@ class ErrorHandelerFlutter {
     useHttp = usehttp ?? true;
     showSnackbar = showSnackbar ?? true;
   }
-
+/// use ErrorHandelerFlutter().get() for API GET request.
+/// it will convert Response into Result
+/// use Success or Failure to get information about response
+/// ```
+///   switch (resp) {
+///        case Success(value: dynamic val):
+///                 debugPrint(val);
+///                  break;
+///        case Failure(error: ErrorResponse res):
+///                 debugPrint(res);
+/// ```
   Future<Result> get(String url,
       {int timeout = 3, Map<String, String>? headers}) async {
     try {
@@ -64,7 +80,7 @@ class ErrorHandelerFlutter {
               defaultMessage: 'something went Wrong : $e')));
     }
   }
-
+/// get Failure class by providing statuscode and response
   findErrorFromStatusCode(
       {required int code, required http.Response response}) {
     switch (code) {
@@ -83,14 +99,14 @@ class ErrorHandelerFlutter {
                 responseBody: response.body)));
     }
   }
-
+/// returns errorResponseholder
   ErrorResponseHolder getErrorFromEnum(
       ErrorHandelerFlutterEnum errorEnum, String body) {
     return getEnumMap(responseBody: body)[errorEnum] ??
         ErrorResponseHolder(
             defaultMessage: 'Something Went Wrong..', responseBody: body);
   }
-
+/// return Map of Enum as key and ErrorResponseHolder as Value
   Map<ErrorHandelerFlutterEnum, ErrorResponseHolder> getEnumMap({
     String? customMessage,
     required String responseBody,
@@ -123,28 +139,46 @@ class ErrorHandelerFlutter {
       };
 }
 
+/// A Class to Hold Error response in Structured manner
 class ErrorResponseHolder {
+  /// Message pre-defined in package
   String defaultMessage;
+  /// Message provided by user in init method
   String? customMessage;
+  /// contains response recieved from server
   String? responseBody;
 
+/// constructor
   ErrorResponseHolder(
       {required this.defaultMessage,
       this.responseBody,
       this.customMessage = ''});
 }
 
+/// Enum class for all the exceptions and statusCodes
 enum ErrorHandelerFlutterEnum {
+  /// 400
   badRequestError,
+  /// TimeOut exception
   timeOutError,
+  /// 403
   forbiddenError,
+  /// 500
   internalServerError,
+  /// 503
   serverUnavailableError,
+  /// 401
   unAutherizationError,
+  /// 404
   notFoundError,
+  /// When Internet is not available
   noInternetError,
+  /// Platform Exception
   platformExceptionError,
+  /// SocketException  ( When base Url is no longer active or Internet issue)
   socketExceptionError,
+  /// useually thrown when exception caught in Catch block or statusCode/Exception not defined in enum or Unkown to the package
   undefined,
+  /// Format Exception 
   formatExceptionError,
 }

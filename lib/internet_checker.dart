@@ -3,6 +3,8 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
+/// A Class to get Information about the Internet and Connection provider
+
 class InternetConnectionChecker {
   final List<AddressCheckOption> _defaultCheckOptions = <AddressCheckOption>[
     AddressCheckOption(
@@ -48,7 +50,7 @@ class InternetConnectionChecker {
       return false;
     }
   }
-
+/// gives True or False whether the device is Connected to Internet and Internet is available or not. 
   Future<bool> get hasConnection async {
     final Completer<bool> completer = Completer<bool>();
     int length = _defaultCheckOptions.length;
@@ -74,7 +76,8 @@ class InternetConnectionChecker {
 
     return completer.future;
   }
-
+/// Use to get True or false for device is Connected to Internet provider or not
+/// It uses Connectivity_plus to fetch information.
   Future<bool> isNetworkConnected() async {
     final results = await Connectivity().checkConnectivity();
 
@@ -87,8 +90,10 @@ class InternetConnectionChecker {
   }
 }
 
-class AddressCheckOption {
+/// Contains URI to test Internet Connection
+base class AddressCheckOption {
+  /// URI 
   Uri uri;
-
+/// Cosntructor
   AddressCheckOption({required this.uri});
 }
