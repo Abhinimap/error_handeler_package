@@ -7,6 +7,8 @@ This package also ensure proper network checking before making any APi request f
 
 ## Android Configuration 
 On Android, for correct working in release mode, you must add INTERNET & ACCESS_NETWORK_STATE permissions to AndroidManifest.xml, follow the next lines:
+
+
 ```
     <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     
@@ -15,33 +17,35 @@ On Android, for correct working in release mode, you must add INTERNET & ACCESS_
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     
     <application
-        ...
+    
+```
 
-        ```
+You can call `InternetConnectionChecker().hasConnection` to get bool Status of Internet Connection Availability, kindly note that this will only return Internet Status not Internet proivder device info like wifi, mobile,etc.
 
-You can call `InternetConnectionChecker().hasConnection` to get bool Status of Internet Connection Availability, kindly note that this will only return Internet Status not Internet proivder device info like wifi, mobile,etc. <br>
+
 
 ```
  if (!await InternetConnectionChecker().hasConnection) {
         CustomSnackbar().showNoInternetSnackbar();
-      }
+      }     
 ```
- <br>You can use this to show Alert Dialog or run some code 
+
+
+ You can use this to show Alert Dialog or run some code 
 
 
 
  ## use of package for API Call
 
 Initialize Snackbar after MaterialApp is configured.
- ```
 
+ ```
   @override
   Widget build(BuildContext context) {
     
     // Make sure to call init function before using api call from ErrorHandelerFlutter class
     // context is needed to show No internet Snackbar,
     // Otherwise Snackbar will not appear when device is not connected to internet and api request is made
-
     CustomSnackbar().init(context);
 
     return Scaffold(
@@ -53,6 +57,7 @@ use `ErrorHandelerFlutter().get(url)` to make GET request call
 and get response as Result class, use Switch statement to iterate through Success or Failure
 
 Below is sample code for how the request are made and how response are manipulated
+
 ```
  ElevatedButton(
                   onPressed: () async {
