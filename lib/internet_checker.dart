@@ -50,7 +50,8 @@ class InternetConnectionChecker {
       return false;
     }
   }
-/// gives True or False whether the device is Connected to Internet and Internet is available or not. 
+
+  /// gives True or False whether the device is Connected to Internet and Internet is available or not.
   Future<bool> get hasConnection async {
     final Completer<bool> completer = Completer<bool>();
     int length = _defaultCheckOptions.length;
@@ -65,7 +66,8 @@ class InternetConnectionChecker {
           if (completer.isCompleted) return;
 
           if (result) {
-            debugPrint("option checked : ${_defaultCheckOptions.length-length}");
+            debugPrint(
+                "option checked : ${_defaultCheckOptions.length - length}");
             completer.complete(true);
           } else if (length == 0) {
             completer.complete(false);
@@ -76,8 +78,9 @@ class InternetConnectionChecker {
 
     return completer.future;
   }
-/// Use to get True or false for device is Connected to Internet provider or not
-/// It uses Connectivity_plus to fetch information.
+
+  /// Use to get True or false for device is Connected to Internet provider or not
+  /// It uses Connectivity_plus to fetch information.
   Future<bool> isNetworkConnected() async {
     final results = await Connectivity().checkConnectivity();
 
@@ -92,8 +95,9 @@ class InternetConnectionChecker {
 
 /// Contains URI to test Internet Connection
 base class AddressCheckOption {
-  /// URI 
+  /// URI
   Uri uri;
-/// Cosntructor
+
+  /// Cosntructor
   AddressCheckOption({required this.uri});
 }
