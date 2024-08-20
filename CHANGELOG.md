@@ -1,3 +1,19 @@
+
+## 0.0.3+1
+
+- Example flutter app added to demonstrate use of Package
+
+## 0.0.3
+
+- Documentation for package
+
+
+## 0.0.2
+
+- Updated Documentation
+- description changes
+
 ## 0.0.1
 
-* TODO: Describe initial release.
+- Initial Release (non-breaking change which adds functionality)
+- Licenses
