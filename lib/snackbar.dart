@@ -33,4 +33,22 @@ class CustomSnackbar {
       ScaffoldMessenger.of(_context!).showSnackBar(snack);
     }
   }
+
+  /// show Snackbar with Custom Message
+  void showCustomSnackbar({String? mesg, Color? bgColor, Color? textColor}) {
+    SnackBar snack = SnackBar(
+      content: Text(
+        mesg ?? '',
+        style: TextStyle(color: textColor),
+      ),
+      backgroundColor: bgColor,
+      elevation: 2,
+      behavior: SnackBarBehavior.floating,
+      margin: const EdgeInsets.all(16),
+      shape: const RoundedRectangleBorder(),
+    );
+    if (_context != null) {
+      ScaffoldMessenger.of(_context!).showSnackBar(snack);
+    }
+  }
 }

@@ -7,7 +7,7 @@ This package also ensure proper network checking before making any APi request f
 
 ## Android Configuration 
 On Android, for correct working in release mode, you must add INTERNET & ACCESS_NETWORK_STATE permissions to AndroidManifest.xml, follow the next lines:
-
+    
 
 ```
     <manifest xmlns:android="http://schemas.android.com/apk/res/android">

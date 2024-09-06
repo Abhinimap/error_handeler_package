@@ -82,6 +82,68 @@ class ErrorHandelerFlutter {
     }
   }
 
+  /// use ErrorHandelerFlutter().post() for API GET request.
+  /// it will convert Response into Result
+  /// use Success or Failure to get information about response
+  /// ```
+  ///   switch (resp) {
+  ///        case Success(value: dynamic val):
+  ///                 debugPrint(val);
+  ///                  break;
+  ///        case Failure(error: ErrorResponse res):
+  ///                 debugPrint(res);
+  /// ```
+  Future<Result> post(String url,
+      {int timeout = 3,
+      Map<String, String>? headers,
+      required String body}) async {
+    try {
+      if (!await InternetConnectionChecker().hasConnection) {
+        CustomSnackbar().showNoInternetSnackbar();
+      }
+      final response = await http
+          .post(Uri.parse(url), headers: headers, body: body)
+          .timeout(Duration(seconds: timeout));
+
+      switch (response.statusCode) {
+        case >= 200 && < 300:
+          return Success(response.body);
+        case >= 400:
+          return Failure(findErrorFromStatusCode(
+              code: response.statusCode, response: response));
+        default:
+          return Failure(ErrorResponse(
+              errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.undefined,
+              errorResponseHolder: ErrorResponseHolder(
+                  defaultMessage: 'Something Went wrong..')));
+      }
+    } on PlatformException {
+      return Failure(ErrorResponse(
+          errorHandelerFlutterEnum:
+              ErrorHandelerFlutterEnum.platformExceptionError,
+          errorResponseHolder: ErrorResponseHolder(
+              defaultMessage: 'Platform Exception Caught')));
+    } on SocketException catch (e) {
+      return Failure(ErrorResponse(
+          errorHandelerFlutterEnum:
+              ErrorHandelerFlutterEnum.socketExceptionError,
+          errorResponseHolder:
+              ErrorResponseHolder(defaultMessage: 'Socket Exception:$e')));
+    } on FormatException {
+      return Failure(ErrorResponse(
+          errorHandelerFlutterEnum:
+              ErrorHandelerFlutterEnum.formatExceptionError,
+          errorResponseHolder:
+              ErrorResponseHolder(defaultMessage: 'format exception Error')));
+    } catch (e) {
+      print("error occurs  :$e");
+      return Failure(ErrorResponse(
+          errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.undefined,
+          errorResponseHolder: ErrorResponseHolder(
+              defaultMessage: 'something went Wrong : $e')));
+    }
+  }
+
   /// get Failure class by providing statuscode and response
   findErrorFromStatusCode(
       {required int code, required http.Response response}) {

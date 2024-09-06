@@ -85,10 +85,10 @@ packages:
     dependency: "direct main"
     description:
       name: error_handeler_flutter
-      sha256: "5d6fef9ed3d3b113d1d2e6e07f37c3d8319140645bcc0206d817923f3f06a586"
+      sha256: "89317d445741b64f576b591268632bc0c81cf42217c15d5798ccfe15f671e752"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.3"
+    version: "0.0.6"
   fake_async:
     dependency: transitive
     description:

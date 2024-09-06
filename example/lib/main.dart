@@ -33,7 +33,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   bool isConnected = false;
   Map? _result;
   ErrorResponse? failure;
@@ -43,7 +42,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    
     // Make sure to call init function before using api call from ErrorHandelerFlutter class
     // context is needed to show No internet Snackbar
     CustomSnackbar().init(context);
@@ -66,24 +64,25 @@ class _MyHomePageState extends State<MyHomePage> {
                 '$_result',
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
-             const SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               ElevatedButton(
                   onPressed: () async {
-                    final Result response = await ErrorHandelerFlutter().get(url);
+                    final Result response =
+                        await ErrorHandelerFlutter().post(url, body: '');
                     switch (response) {
                       case Success(value: dynamic result):
                         debugPrint(
                             'Use response as you like, or convert it into model: $result');
-                            setState(() {
-                              _result = json.decode(result) as Map;
-                            });
+                        setState(() {
+                          _result = json.decode(result) as Map;
+                        });
                         break;
                       case Failure(error: ErrorResponse resp):
-                      setState(() {
-                        failure= resp;
-                      });
+                        setState(() {
+                          failure = resp;
+                        });
                         debugPrint(
                             'the error occured : ${resp.errorHandelerFlutterEnum.name}');
                         // pass through enums of failure to customize uses according to failures
@@ -104,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         debugPrint('Api Response not matched with any cases ');
                     }
                   },
-                  child:const Text('Call Api'))
+                  child: const Text('Call Api'))
             ],
           ),
         ),
