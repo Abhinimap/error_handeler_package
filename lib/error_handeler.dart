@@ -34,7 +34,7 @@ class ErrorHandelerFlutter {
   ///        case Failure(error: ErrorResponse res):
   ///                 debugPrint(res);
   /// ```
-  Future<Result> get(String url,
+  Future<Result<dynamic, ErrorResponse>> get(String url,
       {int timeout = 3, Map<String, String>? headers}) async {
     try {
       if (!await InternetConnectionChecker().hasConnection) {
@@ -93,7 +93,7 @@ class ErrorHandelerFlutter {
   ///        case Failure(error: ErrorResponse res):
   ///                 debugPrint(res);
   /// ```
-  Future<Result> post(String url,
+  Future<Result<dynamic, ErrorResponse>> post(String url,
       {int timeout = 3,
       Map<String, String>? headers,
       required String body}) async {
