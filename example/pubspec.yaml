@@ -14,7 +14,8 @@ dependencies:
 
   cupertino_icons: ^1.0.8
   error_handeler_flutter:
-    git: "error_handeler_flutter"
+    git:
+      url: https://github.com/Abhinimap/error_handeler_package.git
 
 dev_dependencies:
   flutter_test:

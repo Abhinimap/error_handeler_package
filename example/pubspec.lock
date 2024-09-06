@@ -84,10 +84,11 @@ packages:
   error_handeler_flutter:
     dependency: "direct main"
     description:
-      name: error_handeler_flutter
-      sha256: "89317d445741b64f576b591268632bc0c81cf42217c15d5798ccfe15f671e752"
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: adff41c87cfb9b0b306b377a6e5a1742c3123c06
+      url: "https://github.com/Abhinimap/error_handeler_package.git"
+    source: git
     version: "0.0.6"
   fake_async:
     dependency: transitive
