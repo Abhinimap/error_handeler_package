@@ -1,4 +1,8 @@
 
+## 0.0.7
+
+- Added post request
+
 ## 0.0.3+1
 
 - Example flutter app added to demonstrate use of Package
