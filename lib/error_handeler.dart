@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:error_handeler_flutter/internet_checker.dart';
 import 'package:error_handeler_flutter/result.dart';
 import 'package:error_handeler_flutter/snackbar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
@@ -34,7 +35,7 @@ class ErrorHandelerFlutter {
   ///        case Failure(error: ErrorResponse res):
   ///                 debugPrint(res);
   /// ```
-  Future<Result<dynamic, ErrorResponse>> get(String url,
+  Future<Result> get(String url,
       {int timeout = 3, Map<String, String>? headers}) async {
     try {
       if (!await InternetConnectionChecker().hasConnection) {
@@ -93,7 +94,7 @@ class ErrorHandelerFlutter {
   ///        case Failure(error: ErrorResponse res):
   ///                 debugPrint(res);
   /// ```
-  Future<Result<dynamic, ErrorResponse>> post(String url,
+  Future<Result> post(String url,
       {int timeout = 3,
       Map<String, String>? headers,
       required String body}) async {
@@ -104,7 +105,7 @@ class ErrorHandelerFlutter {
       final response = await http
           .post(Uri.parse(url), headers: headers, body: body)
           .timeout(Duration(seconds: timeout));
-
+      debugPrint("response : ${response.body}");
       switch (response.statusCode) {
         case >= 200 && < 300:
           return Success(response.body);
@@ -136,7 +137,7 @@ class ErrorHandelerFlutter {
           errorResponseHolder:
               ErrorResponseHolder(defaultMessage: 'format exception Error')));
     } catch (e) {
-      print("error occurs  :$e");
+      debugPrint("error occurs  :$e");
       return Failure(ErrorResponse(
           errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.undefined,
           errorResponseHolder: ErrorResponseHolder(

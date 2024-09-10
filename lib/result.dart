@@ -1,12 +1,12 @@
 import 'package:error_handeler_flutter/error_handeler.dart';
 
 /// Result class is a Super class of Success and Failure class
-sealed class Result<R, E extends ErrorResponse> {
+sealed class Result<R> {
   const Result();
 }
 
 /// Inherit Result class and contains Successfull response of API Reuest
-class Success<R, E extends ErrorResponse> extends Result {
+class Success<R> extends Result {
   /// contains a dynamic Success value
   final R value;
 
@@ -16,7 +16,7 @@ class Success<R, E extends ErrorResponse> extends Result {
 
 /// Inherited from Result class
 /// This class represent Failed response from the API request
-class Failure<R, E extends ErrorResponse> extends Result {
+class Failure< E extends ErrorResponse> extends Result {
   /// Contains information about Failure of the APi request
   final ErrorResponse error;
 
