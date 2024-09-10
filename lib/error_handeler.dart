@@ -41,6 +41,7 @@ class ErrorHandelerFlutter {
       if (!await InternetConnectionChecker().hasConnection) {
         CustomSnackbar().showNoInternetSnackbar();
       }
+      print("fetching data from : $url");
       final response = await http
           .get(Uri.parse(url), headers: headers)
           .timeout(Duration(seconds: timeout));
@@ -49,8 +50,8 @@ class ErrorHandelerFlutter {
         case >= 200 && < 300:
           return Success(response.body);
         case >= 400:
-          return Failure(findErrorFromStatusCode(
-              code: response.statusCode, response: response));
+          return findErrorFromStatusCode(
+              code: response.statusCode, response: response);
         default:
           return Failure(ErrorResponse(
               errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.undefined,
@@ -94,7 +95,7 @@ class ErrorHandelerFlutter {
   ///        case Failure(error: ErrorResponse res):
   ///                 debugPrint(res);
   /// ```
-  Future<Result> post(String url,
+  Future<Result<dynamic>> post(String url,
       {int timeout = 3,
       Map<String, String>? headers,
       required String body}) async {
@@ -102,16 +103,17 @@ class ErrorHandelerFlutter {
       if (!await InternetConnectionChecker().hasConnection) {
         CustomSnackbar().showNoInternetSnackbar();
       }
+      debugPrint("fetching data from url :$url");
       final response = await http
           .post(Uri.parse(url), headers: headers, body: body)
           .timeout(Duration(seconds: timeout));
-      debugPrint("response : ${response.body}");
+      debugPrint("response : ${response.body},statud :${response.statusCode}");
       switch (response.statusCode) {
         case >= 200 && < 300:
           return Success(response.body);
         case >= 400:
-          return Failure(findErrorFromStatusCode(
-              code: response.statusCode, response: response));
+          return findErrorFromStatusCode(
+              code: response.statusCode, response: response);
         default:
           return Failure(ErrorResponse(
               errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.undefined,

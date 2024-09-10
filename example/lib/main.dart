@@ -38,7 +38,8 @@ class _MyHomePageState extends State<MyHomePage> {
   ErrorResponse? failure;
 
   // enter your own url to test
-  String url = 'https://mocki.io/v1/cbde42ba-5b27-4530-8fc5-2d3aa669ccbd';
+  // String url = 'https://mocki.io/v1/cbde42ba-5b27-4530-8fc5-2d3aa669ccbd';
+  String url = 'https://66c45adfb026f3cc6ceefd10.mockapi.io/data/posstdata';
 
   @override
   Widget build(BuildContext context) {
@@ -72,10 +73,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   onPressed: () async {
                     final Result response =
                         await ErrorHandelerFlutter().post(url, body: '');
+                    debugPrint("response type  :${response.runtimeType}");
                     switch (response) {
                       case Success(value: dynamic result):
                         debugPrint(
-                            'Use response as you like, or convert it into model: $result');
+                            'Use response as you like, or convert it into model: $result<--');
                         setState(() {
                           _result = json.decode(result) as Map;
                         });
