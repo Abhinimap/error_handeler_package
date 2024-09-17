@@ -2,6 +2,9 @@
 
 - formated docs
 
+## 0.0.8
+- Added DIO support for Api call
+
 ## 0.0.7
 
 - Added post request
