@@ -1,6 +1,6 @@
 name: error_handeler_flutter
 description: "A Flutter Package to provide smooth Api call with All Error and Exception handeled."
-version: 0.0.7
+version: 0.0.8
 homepage: https://github.com/Abhinimap/error_handeler_package/tree/main
 repository: https://github.com/Abhinimap/error_handeler_package
 
@@ -10,6 +10,7 @@ environment:
 
 dependencies:
   connectivity_plus: ^6.0.5
+  dio: ^5.7.0
   flutter:
     sdk: flutter
   http: ^1.2.2
