@@ -26,12 +26,8 @@ class ApiController extends GetxController {
       '/data/postdata',
     );
     // await ErrorHandlerFlutter.post('/data/postdata', body: '');
-    debugPrint("response type  :${response.runtimeType}");
     switch (response) {
       case Success(value: dynamic data):
-        debugPrint(
-            'Use response as you like, or convert it into model: $data<--');
-
         result.value = ErrorHandlerFlutter.useHttp
             ? (await json.decode(data.body)).toString()
             : data.data.toString();

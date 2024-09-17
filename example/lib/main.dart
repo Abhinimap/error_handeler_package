@@ -1,17 +1,25 @@
 import 'package:error_handeler_flutter/dio_api.dart';
 import 'package:error_handeler_flutter/error_handeler_flutter.dart';
+import 'package:error_handeler_flutter/http_api.dart';
 import 'package:example/controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 
 void main() async {
+  // set whether to use http or Dio, by default it will use HTTP
   ErrorHandlerFlutter().init(usehttp: false);
-  PackageDio.addInterceptors([]);
 
+  // setup DIO
+  PackageDio.addInterceptors([]);
   PackageDio.setBaseOptions(
       baseUrl: 'https://66c45adfb026f3cc6ceefd10.mockapi.io');
   PackageDio.setUpDio();
-  // PackageHttp.setup(host: '66c45adfb026f3cc6ceefd10.mockapi.io');
+
+  // setup HTTP
+  PackageHttp.setupClient(client: http.Client());
+  PackageHttp.setup(host: '66c45adfb026f3cc6ceefd10.mockapi.io', prefix: '');
+
   runApp(const MyApp());
 }
 

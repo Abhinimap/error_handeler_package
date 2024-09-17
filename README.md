@@ -37,6 +37,38 @@ You can call `InternetConnectionChecker().hasConnection` to get bool Status of I
 
  ## use of package for API Call
 
+let's setup project to use HTTP and DIO REST API call
+
+```dart
+
+void main() async {
+  // set whether to use http or Dio, by default it will use HTTP
+  ErrorHandlerFlutter().init(usehttp: false);
+
+  // setup DIO
+  PackageDio.addInterceptors([]);
+  PackageDio.setBaseOptions(
+    // you can set more option inside it
+    // but here i am setting base url to use for api calls
+      baseUrl: 'https://66c45adfb026f3cc6ceefd10.mockapi.io'
+  );
+  
+  // this will add base options and interceptors to dio client
+  // must be called to setup dio 
+  PackageDio.setUpDio();
+
+
+  // setup HTTP
+  // you can define your own http client (optional)
+  PackageHttp.setupClient(client:http.Client() );
+  // necessary to pass host (base url) to make http request
+  PackageHttp.setup(host: '66c45adfb026f3cc6ceefd10.mockapi.io',prefix: '');
+
+  runApp(const MyApp());
+}
+
+```
+
 Initialize Snackbar after MaterialApp is configured.
 
  ```
@@ -58,41 +90,53 @@ and get response as Result class, use Switch statement to iterate through Succes
 
 Below is sample code for how the request are made and how response are manipulated
 
-```
- ElevatedButton(
-                  onPressed: () async {
-                    final Result response = await ErrorHandelerFlutter().get(url);
-                    switch (response) {
-                      case Success(value: dynamic result):
-                        debugPrint(
-                            'Use response as you like, or convert it into model: $result');
-                            setState(() {
-                              _result = json.decode(result) as Map;
-                            });
-                        break;
-                      case Failure(error: ErrorResponse resp):
-                      setState(() {
-                        failure= resp;
-                      });
-                        debugPrint(
-                            'the error occured : ${resp.errorHandelerFlutterEnum.name}');
-                        // pass through enums of failure to customize uses according to failures
-                        switch (resp.errorHandelerFlutterEnum) {
-                          case ErrorHandelerFlutterEnum.badRequestError:
-                            debugPrint(
-                                'the status is 400 , Bad request from client side ');
-                            break;
-                          case ErrorHandelerFlutterEnum.notFoundError:
-                            debugPrint('404 , Api endpoint not found');
-                            break;
-                          default:
-                            debugPrint(
-                                'Not matched in cases : ${resp.errorHandelerFlutterEnum.name}');
-                        }
-                        break;
-                      default:
-                        debugPrint('Api Response not matched with any cases ');
-                    }
-                  },
-                  child:const Text('Call Api'))
+```dart
+
+  Future<void> callApi() async {
+    clear();
+    final Result response = await ErrorHandlerFlutter.get(
+      '/data/postdata',
+    );
+    // await ErrorHandlerFlutter.post('/data/postdata', body: '');
+    switch (response) {
+      case Success(value: dynamic data):
+
+        result.value = ErrorHandlerFlutter.useHttp
+            ? (await json.decode(data.body)).toString()
+            : data.data.toString();
+        debugPrint('result  :$data');
+        break;
+      case Failure(error: ErrorResponse resp):
+        debugPrint('the error occured : ${resp.errorHandelerFlutterEnum.name}');
+
+        // Holds message regarding error
+        defMesg.value = resp.errorResponseHolder.defaultMessage;
+        customMesg.value = resp.errorResponseHolder.customMessage ?? '';
+        
+        // give error type 
+        // such as badrequest , InternalServerError,etc..
+        errorEnum.value = resp.errorHandelerFlutterEnum.name;
+        
+        // if error caught by package such as statusCode >300 
+        // response body of that request is stored here
+        responsebody.value = resp.errorResponseHolder.responseBody ?? '';
+        
+        // pass through enums of failure to customize uses according to failures
+        switch (resp.errorHandelerFlutterEnum) {
+          case ErrorHandelerFlutterEnum.badRequestError:
+            debugPrint(
+                'the status is 400 , Bad request from client side :resbody:${resp.errorResponseHolder.responseBody}\n mesg :${resp.errorResponseHolder.defaultMessage} ');
+            break;
+          case ErrorHandelerFlutterEnum.notFoundError:
+            debugPrint('404 , Api endpoint not found');
+            break;
+          default:
+            debugPrint(
+                'Not matched in main cases : ${resp.errorHandelerFlutterEnum.name} ${resp.errorResponseHolder.defaultMessage}');
+        }
+        break;
+      default:
+        debugPrint('Api Response not matched with any cases ');
+    }
+  }
 ```
