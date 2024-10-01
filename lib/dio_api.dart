@@ -65,77 +65,52 @@ class PackageDio {
   }
 
   /// GET request of DIO
-  static dioGet(
-      {required String urlPath,
-      Map<String, dynamic>? queryPara,
-      Map<String, dynamic>? headers}) async {
+  static dioGet({required String urlPath, Map<String, dynamic>? queryPara, Map<String, dynamic>? headers}) async {
     try {
-      final res = await _dio.get(urlPath,
-          queryParameters: queryPara, options: Options(headers: headers));
+      final res = await _dio.get(urlPath, queryParameters: queryPara, options: Options(headers: headers));
       return res;
     } on PlatformException {
-      return Failure(ErrorResponse(
-          errorHandelerFlutterEnum:
-              ErrorHandelerFlutterEnum.platformExceptionError,
-          errorResponseHolder: ErrorResponseHolder(
-              defaultMessage: 'Platform Exception Caught')));
+      return Failure(ErrorResponse(errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.platformExceptionError, errorResponseHolder: ErrorResponseHolder(defaultMessage: 'Platform Exception Caught')));
     } on SocketException catch (e) {
-      return Failure(ErrorResponse(
-          errorHandelerFlutterEnum:
-              ErrorHandelerFlutterEnum.socketExceptionError,
-          errorResponseHolder:
-              ErrorResponseHolder(defaultMessage: 'Socket Exception:$e')));
+      return Failure(ErrorResponse(errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.socketExceptionError, errorResponseHolder: ErrorResponseHolder(defaultMessage: 'Socket Exception:$e')));
     } on FormatException {
-      return Failure(ErrorResponse(
-          errorHandelerFlutterEnum:
-              ErrorHandelerFlutterEnum.formatExceptionError,
-          errorResponseHolder:
-              ErrorResponseHolder(defaultMessage: 'format exception Error')));
+      return Failure(ErrorResponse(errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.formatExceptionError, errorResponseHolder: ErrorResponseHolder(defaultMessage: 'format exception Error')));
     } catch (e) {
-      return Failure(ErrorResponse(
-          errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.undefined,
-          errorResponseHolder: ErrorResponseHolder(
-              defaultMessage: 'something went Wrong : $e')));
+      return Failure(ErrorResponse(errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.undefined, errorResponseHolder: ErrorResponseHolder(defaultMessage: 'something went Wrong : $e')));
     }
   }
 
   /// POST request of DIO
-  static dioPost(
-      {required String urlPath,
-      dynamic body,
-      Map<String, dynamic>? queryPara,
-      Map<String, dynamic>? headers}) async {
+  static dioPost({required String urlPath, dynamic body, Map<String, dynamic>? queryPara, Map<String, dynamic>? headers}) async {
     try {
-      final res = await _dio.post(urlPath,
-          data: body,
-          queryParameters: queryPara,
-          options: Options(headers: headers));
+      final res = await _dio.post(urlPath, data: body, queryParameters: queryPara, options: Options(headers: headers));
       return res;
     } on PlatformException {
-      return Failure(ErrorResponse(
-          errorHandelerFlutterEnum:
-              ErrorHandelerFlutterEnum.platformExceptionError,
-          errorResponseHolder: ErrorResponseHolder(
-              defaultMessage: 'Platform Exception Caught')));
+      return Failure(ErrorResponse(errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.platformExceptionError, errorResponseHolder: ErrorResponseHolder(defaultMessage: 'Platform Exception Caught')));
     } on SocketException catch (e) {
-      return Failure(ErrorResponse(
-          errorHandelerFlutterEnum:
-              ErrorHandelerFlutterEnum.socketExceptionError,
-          errorResponseHolder:
-              ErrorResponseHolder(defaultMessage: 'Socket Exception:$e')));
+      return Failure(ErrorResponse(errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.socketExceptionError, errorResponseHolder: ErrorResponseHolder(defaultMessage: 'Socket Exception:$e')));
     } on FormatException {
-      return Failure(ErrorResponse(
-          errorHandelerFlutterEnum:
-              ErrorHandelerFlutterEnum.formatExceptionError,
-          errorResponseHolder:
-              ErrorResponseHolder(defaultMessage: 'format exception Error')));
+      return Failure(ErrorResponse(errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.formatExceptionError, errorResponseHolder: ErrorResponseHolder(defaultMessage: 'format exception Error')));
     } on DioException catch (e) {
       debugPrint('error of dioexp : ${e.type}');
     } catch (e) {
-      return Failure(ErrorResponse(
-          errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.undefined,
-          errorResponseHolder: ErrorResponseHolder(
-              defaultMessage: 'something went Wrong : $e')));
+      return Failure(ErrorResponse(errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.undefined, errorResponseHolder: ErrorResponseHolder(defaultMessage: 'something went Wrong : $e')));
+    }
+  }
+
+  /// Delete request of DIO
+  static dioDelete({required String urlPath, Map<String, dynamic>? queryPara, Map<String, dynamic>? headers}) async {
+    try {
+      final res = await _dio.delete(urlPath, queryParameters: queryPara, options: Options(headers: headers));
+      return res;
+    } on PlatformException {
+      return Failure(ErrorResponse(errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.platformExceptionError, errorResponseHolder: ErrorResponseHolder(defaultMessage: 'Platform Exception Caught')));
+    } on SocketException catch (e) {
+      return Failure(ErrorResponse(errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.socketExceptionError, errorResponseHolder: ErrorResponseHolder(defaultMessage: 'Socket Exception:$e')));
+    } on FormatException {
+      return Failure(ErrorResponse(errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.formatExceptionError, errorResponseHolder: ErrorResponseHolder(defaultMessage: 'format exception Error')));
+    } catch (e) {
+      return Failure(ErrorResponse(errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.undefined, errorResponseHolder: ErrorResponseHolder(defaultMessage: 'something went Wrong : $e')));
     }
   }
 }

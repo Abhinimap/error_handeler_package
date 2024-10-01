@@ -38,10 +38,7 @@ class ErrorHandlerFlutter {
 
         default:
           return Failure(ErrorResponse(
-              errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.undefined,
-              errorResponseHolder: ErrorResponseHolder(
-                  defaultMessage: 'Something went wrong',
-                  responseBody: response.body)));
+              errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.undefined, errorResponseHolder: ErrorResponseHolder(defaultMessage: 'Something went wrong', responseBody: response.body)));
       }
     }
   }
@@ -62,10 +59,7 @@ class ErrorHandlerFlutter {
 
         default:
           return Failure(ErrorResponse(
-              errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.undefined,
-              errorResponseHolder: ErrorResponseHolder(
-                  defaultMessage: 'Something went wrong',
-                  responseBody: response.body)));
+              errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.undefined, errorResponseHolder: ErrorResponseHolder(defaultMessage: 'Something went wrong', responseBody: response.body)));
       }
     }
   }
@@ -75,57 +69,35 @@ class ErrorHandlerFlutter {
       case 400:
         return Failure(
           ErrorResponse(
-              errorHandelerFlutterEnum:
-                  ErrorHandelerFlutterEnum.badRequestError,
-              errorResponseHolder: ErrorResponseHolder(
-                  defaultMessage: 'Bad Request..',
-                  responseBody: res.body,
-                  customMessage:
-                      'Bad Request.. ${res is http.Response ? res.body : res.data}')),
+              errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.badRequestError,
+              errorResponseHolder: ErrorResponseHolder(defaultMessage: 'Bad Request..', responseBody: res.body, customMessage: 'Bad Request.. ${res is http.Response ? res.body : res.data}')),
         );
       case 401:
         return Failure(
           ErrorResponse(
-              errorHandelerFlutterEnum:
-                  ErrorHandelerFlutterEnum.unAuthorizationError,
+              errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.unAuthorizationError,
               errorResponseHolder: ErrorResponseHolder(
-                  defaultMessage:
-                      'You are not authorized to access this resources..',
-                  responseBody: res.body,
-                  customMessage:
-                      'Unauthorized... ${res is http.Response ? res.body : res.data}')),
+                  defaultMessage: 'You are not authorized to access this resources..', responseBody: res.body, customMessage: 'Unauthorized... ${res is http.Response ? res.body : res.data}')),
         );
       case 403:
         return Failure(
           ErrorResponse(
               errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.forbiddenError,
               errorResponseHolder: ErrorResponseHolder(
-                  defaultMessage:
-                      'You are restricted to access this resources..',
-                  responseBody: res.body,
-                  customMessage:
-                      'Forbidden... ${res is http.Response ? res.body : res.data}')),
+                  defaultMessage: 'You are restricted to access this resources..', responseBody: res.body, customMessage: 'Forbidden... ${res is http.Response ? res.body : res.data}')),
         );
       case 404:
         return Failure(
           ErrorResponse(
               errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.notFoundError,
               errorResponseHolder: ErrorResponseHolder(
-                  defaultMessage:
-                      'Resource want not find at ${res.request?.url}..',
-                  responseBody: res.body,
-                  customMessage:
-                      '404 Not Found... ${res is http.Response ? res.body : res.data}')),
+                  defaultMessage: 'Resource want not find at ${res.request?.url}..', responseBody: res.body, customMessage: '404 Not Found... ${res is http.Response ? res.body : res.data}')),
         );
       case 409:
         return Failure(
           ErrorResponse(
               errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.conflictError,
-              errorResponseHolder: ErrorResponseHolder(
-                  defaultMessage: 'data Conflicted',
-                  responseBody: res.body,
-                  customMessage:
-                      '409... ${res is http.Response ? res.body : res.data}')),
+              errorResponseHolder: ErrorResponseHolder(defaultMessage: 'data Conflicted', responseBody: res.body, customMessage: '409... ${res is http.Response ? res.body : res.data}')),
         );
       default:
         return Failure(ErrorResponse(
@@ -143,46 +115,30 @@ class ErrorHandlerFlutter {
       case 500:
         return Failure(
           ErrorResponse(
-              errorHandelerFlutterEnum:
-                  ErrorHandelerFlutterEnum.internalServerError,
-              errorResponseHolder: ErrorResponseHolder(
-                  defaultMessage: 'Internal Server Error..',
-                  responseBody: res.body,
-                  customMessage:
-                      'Internal Server Error.. ${res is http.Response ? res.body : res.data}')),
+              errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.internalServerError,
+              errorResponseHolder:
+                  ErrorResponseHolder(defaultMessage: 'Internal Server Error..', responseBody: res.body, customMessage: 'Internal Server Error.. ${res is http.Response ? res.body : res.data}')),
         );
       case 501:
         return Failure(
           ErrorResponse(
-              errorHandelerFlutterEnum:
-                  ErrorHandelerFlutterEnum.serverNotSupportError,
+              errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.serverNotSupportError,
               errorResponseHolder: ErrorResponseHolder(
-                  defaultMessage: 'Server does not support this functionality',
-                  responseBody: res.body,
-                  customMessage:
-                      'server not supported... ${res is http.Response ? res.body : res.data}')),
+                  defaultMessage: 'Server does not support this functionality', responseBody: res.body, customMessage: 'server not supported... ${res is http.Response ? res.body : res.data}')),
         );
       case 503:
         return Failure(
           ErrorResponse(
-              errorHandelerFlutterEnum:
-                  ErrorHandelerFlutterEnum.serverUnavailableError,
-              errorResponseHolder: ErrorResponseHolder(
-                  responseBody: res.body,
-                  defaultMessage: 'Server Not Available..',
-                  customMessage:
-                      'Server Not available... ${res is http.Response ? res.body : res.data}')),
+              errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.serverUnavailableError,
+              errorResponseHolder:
+                  ErrorResponseHolder(responseBody: res.body, defaultMessage: 'Server Not Available..', customMessage: 'Server Not available... ${res is http.Response ? res.body : res.data}')),
         );
       case 504:
         return Failure(
           ErrorResponse(
-              errorHandelerFlutterEnum:
-                  ErrorHandelerFlutterEnum.serverGatewayTimeOut,
+              errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.serverGatewayTimeOut,
               errorResponseHolder: ErrorResponseHolder(
-                  defaultMessage: 'server time out on ${res.request?.url}..',
-                  responseBody: res.body,
-                  customMessage:
-                      'server request time out.. ${res is http.Response ? res.body : res.data}')),
+                  defaultMessage: 'server time out on ${res.request?.url}..', responseBody: res.body, customMessage: 'server request time out.. ${res is http.Response ? res.body : res.data}')),
         );
 
       default:
@@ -197,17 +153,13 @@ class ErrorHandlerFlutter {
   }
 
   /// get request
-  static Future<Result> get(String endpoint,
-      {int timeout = 3,
-      Map<String, dynamic>? queryPara,
-      Map<String, String>? headers}) async {
+  static Future<Result> get(String endpoint, {int timeout = 3, Map<String, dynamic>? queryPara, Map<String, String>? headers}) async {
     if (!await InternetConnectionChecker().hasConnection) {
       CustomSnackbar().showNoInternetSnackbar();
     }
     if (useHttp) {
       final res = await PackageHttp.getRequest(
-        url: PackageHttp.getUriFromEndpoints(
-            endpoint: endpoint, queryParams: queryPara),
+        url: PackageHttp.getUriFromEndpoints(endpoint: endpoint, queryParams: queryPara),
         headers: headers,
       );
 
@@ -217,8 +169,7 @@ class ErrorHandlerFlutter {
       debugPrint("api call was on  : ${(res as http.Response).request?.url}");
       return mapHttpResponseToResult(res);
     } else {
-      final res = await PackageDio.dioGet(
-          urlPath: endpoint, headers: headers, queryPara: queryPara);
+      final res = await PackageDio.dioGet(urlPath: endpoint, headers: headers, queryPara: queryPara);
 
       if (res.runtimeType == Failure) {
         return res as Failure;
@@ -228,18 +179,13 @@ class ErrorHandlerFlutter {
   }
 
   /// POST request
-  static Future<Result> post(String endpoint,
-      {int timeout = 3,
-      Map<String, dynamic>? queryPara,
-      dynamic body,
-      Map<String, String>? headers}) async {
+  static Future<Result> post(String endpoint, {int timeout = 3, Map<String, dynamic>? queryPara, dynamic body, Map<String, String>? headers}) async {
     if (!await InternetConnectionChecker().hasConnection) {
       CustomSnackbar().showNoInternetSnackbar();
     }
     if (useHttp) {
       final res = await PackageHttp.postRequest(
-        url: PackageHttp.getUriFromEndpoints(
-            endpoint: endpoint, queryParams: queryPara),
+        url: PackageHttp.getUriFromEndpoints(endpoint: endpoint, queryParams: queryPara),
         headers: headers,
         body: body,
       );
@@ -249,8 +195,32 @@ class ErrorHandlerFlutter {
       }
       return mapHttpResponseToResult(res);
     } else {
-      final res = await PackageDio.dioPost(
-          urlPath: endpoint, headers: headers, queryPara: queryPara);
+      final res = await PackageDio.dioPost(urlPath: endpoint, headers: headers, queryPara: queryPara);
+      debugPrint("response in post request :$res");
+      if (res.runtimeType == Failure) {
+        return res as Failure;
+      }
+      return mapDioResponseToResult(res);
+    }
+  }
+
+  /// Delete request
+  static Future<Result> delete(String endpoint, {int timeout = 3, Map<String, dynamic>? queryPara, dynamic body, Map<String, String>? headers}) async {
+    if (!await InternetConnectionChecker().hasConnection) {
+      CustomSnackbar().showNoInternetSnackbar();
+    }
+    if (useHttp) {
+      final res = await PackageHttp.deleteRequest(
+        url: PackageHttp.getUriFromEndpoints(endpoint: endpoint, queryParams: queryPara),
+        headers: headers,
+      );
+
+      if (res.runtimeType == Failure) {
+        return res as Failure;
+      }
+      return mapHttpResponseToResult(res);
+    } else {
+      final res = await PackageDio.dioDelete(urlPath: endpoint, headers: headers, queryPara: queryPara);
       debugPrint("response in post request :$res");
       if (res.runtimeType == Failure) {
         return res as Failure;
@@ -434,10 +404,7 @@ class ErrorResponseHolder {
   String? responseBody;
 
   /// constructor
-  ErrorResponseHolder(
-      {required this.defaultMessage,
-      this.responseBody,
-      this.customMessage = ''});
+  ErrorResponseHolder({required this.defaultMessage, this.responseBody, this.customMessage = ''});
 }
 
 /// Enum class for all the exceptions and statusCodes

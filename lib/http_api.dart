@@ -24,16 +24,11 @@ class PackageHttp {
 
   /// it will create uri from given endpoint with including baseurl
   /// baseurl can be setup by calling setup function
-  static Uri getUriFromEndpoints(
-      {required String endpoint,
-      Map<String, dynamic>? queryParams,
-      bool usePrefix = false,
-      List<String>? pathSeg}) {
+  static Uri getUriFromEndpoints({required String endpoint, Map<String, dynamic>? queryParams, bool usePrefix = false, List<String>? pathSeg}) {
     return Uri(
       scheme: 'https',
       host: _host,
-      path:
-          '${usePrefix ? _prefix : ''}$endpoint${pathSeg == null ? '' : pathSeg.join('/')}',
+      path: '${usePrefix ? _prefix : ''}$endpoint${pathSeg == null ? '' : pathSeg.join('/')}',
       queryParameters: queryParams,
     );
   }
@@ -53,105 +48,72 @@ class PackageHttp {
         return await http.get(url, headers: headers);
       }
     } on PlatformException {
-      return Failure(ErrorResponse(
-          errorHandelerFlutterEnum:
-              ErrorHandelerFlutterEnum.platformExceptionError,
-          errorResponseHolder: ErrorResponseHolder(
-              defaultMessage: 'Platform Exception Caught')));
+      return Failure(ErrorResponse(errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.platformExceptionError, errorResponseHolder: ErrorResponseHolder(defaultMessage: 'Platform Exception Caught')));
     } on SocketException catch (e) {
-      return Failure(ErrorResponse(
-          errorHandelerFlutterEnum:
-              ErrorHandelerFlutterEnum.socketExceptionError,
-          errorResponseHolder:
-              ErrorResponseHolder(defaultMessage: 'Socket Exception:$e')));
+      return Failure(ErrorResponse(errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.socketExceptionError, errorResponseHolder: ErrorResponseHolder(defaultMessage: 'Socket Exception:$e')));
     } on FormatException {
-      return Failure(ErrorResponse(
-          errorHandelerFlutterEnum:
-              ErrorHandelerFlutterEnum.formatExceptionError,
-          errorResponseHolder:
-              ErrorResponseHolder(defaultMessage: 'format exception Error')));
+      return Failure(ErrorResponse(errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.formatExceptionError, errorResponseHolder: ErrorResponseHolder(defaultMessage: 'format exception Error')));
     } catch (e) {
-      return Failure(ErrorResponse(
-          errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.undefined,
-          errorResponseHolder: ErrorResponseHolder(
-              defaultMessage: 'something went Wrong : $e')));
+      return Failure(ErrorResponse(errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.undefined, errorResponseHolder: ErrorResponseHolder(defaultMessage: 'something went Wrong : $e')));
     }
   }
 
   /// Http post request
-  static postRequest(
-      {required Uri url,
-      Map<String, String>? headers,
-      required dynamic body}) async {
+  static postRequest({required Uri url, Map<String, String>? headers, required dynamic body}) async {
     try {
       debugPrint('requesting post : $url');
       if (_client != null) {
-        return await _client!
-            .post(url, headers: headers, body: json.encode(body));
+        return await _client!.post(url, headers: headers, body: json.encode(body));
       } else {
         return await http.post(url, headers: headers, body: json.encode(body));
       }
     } on PlatformException {
-      return Failure(ErrorResponse(
-          errorHandelerFlutterEnum:
-              ErrorHandelerFlutterEnum.platformExceptionError,
-          errorResponseHolder: ErrorResponseHolder(
-              defaultMessage: 'Platform Exception Caught')));
+      return Failure(ErrorResponse(errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.platformExceptionError, errorResponseHolder: ErrorResponseHolder(defaultMessage: 'Platform Exception Caught')));
     } on SocketException catch (e) {
-      return Failure(ErrorResponse(
-          errorHandelerFlutterEnum:
-              ErrorHandelerFlutterEnum.socketExceptionError,
-          errorResponseHolder:
-              ErrorResponseHolder(defaultMessage: 'Socket Exception:$e')));
+      return Failure(ErrorResponse(errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.socketExceptionError, errorResponseHolder: ErrorResponseHolder(defaultMessage: 'Socket Exception:$e')));
     } on FormatException {
-      return Failure(ErrorResponse(
-          errorHandelerFlutterEnum:
-              ErrorHandelerFlutterEnum.formatExceptionError,
-          errorResponseHolder:
-              ErrorResponseHolder(defaultMessage: 'format exception Error')));
+      return Failure(ErrorResponse(errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.formatExceptionError, errorResponseHolder: ErrorResponseHolder(defaultMessage: 'format exception Error')));
     } catch (e) {
-      return Failure(ErrorResponse(
-          errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.undefined,
-          errorResponseHolder: ErrorResponseHolder(
-              defaultMessage: 'something went Wrong : $e')));
+      return Failure(ErrorResponse(errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.undefined, errorResponseHolder: ErrorResponseHolder(defaultMessage: 'something went Wrong : $e')));
+    }
+  }
+
+  /// Http get request
+  static deleteRequest({required Uri url, Map<String, String>? headers}) async {
+    try {
+      debugPrint('requesting on  :$url');
+      if (_client != null) {
+        return await _client!.delete(url, headers: headers);
+      } else {
+        return await http.delete(url, headers: headers);
+      }
+    } on PlatformException {
+      return Failure(ErrorResponse(errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.platformExceptionError, errorResponseHolder: ErrorResponseHolder(defaultMessage: 'Platform Exception Caught')));
+    } on SocketException catch (e) {
+      return Failure(ErrorResponse(errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.socketExceptionError, errorResponseHolder: ErrorResponseHolder(defaultMessage: 'Socket Exception:$e')));
+    } on FormatException {
+      return Failure(ErrorResponse(errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.formatExceptionError, errorResponseHolder: ErrorResponseHolder(defaultMessage: 'format exception Error')));
+    } catch (e) {
+      return Failure(ErrorResponse(errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.undefined, errorResponseHolder: ErrorResponseHolder(defaultMessage: 'something went Wrong : $e')));
     }
   }
 
   /// Http put request
-  static putRequest(
-      {required Uri url,
-      Map<String, String>? headers,
-      required Map<String, dynamic> body}) async {
+  static putRequest({required Uri url, Map<String, String>? headers, required Map<String, dynamic> body}) async {
     try {
       if (_client != null) {
-        return await _client!
-            .put(url, headers: headers, body: json.encode(body));
+        return await _client!.put(url, headers: headers, body: json.encode(body));
       } else {
         return await http.put(url, headers: headers, body: body);
       }
     } on PlatformException {
-      return Failure(ErrorResponse(
-          errorHandelerFlutterEnum:
-              ErrorHandelerFlutterEnum.platformExceptionError,
-          errorResponseHolder: ErrorResponseHolder(
-              defaultMessage: 'Platform Exception Caught')));
+      return Failure(ErrorResponse(errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.platformExceptionError, errorResponseHolder: ErrorResponseHolder(defaultMessage: 'Platform Exception Caught')));
     } on SocketException catch (e) {
-      return Failure(ErrorResponse(
-          errorHandelerFlutterEnum:
-              ErrorHandelerFlutterEnum.socketExceptionError,
-          errorResponseHolder:
-              ErrorResponseHolder(defaultMessage: 'Socket Exception:$e')));
+      return Failure(ErrorResponse(errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.socketExceptionError, errorResponseHolder: ErrorResponseHolder(defaultMessage: 'Socket Exception:$e')));
     } on FormatException {
-      return Failure(ErrorResponse(
-          errorHandelerFlutterEnum:
-              ErrorHandelerFlutterEnum.formatExceptionError,
-          errorResponseHolder:
-              ErrorResponseHolder(defaultMessage: 'format exception Error')));
+      return Failure(ErrorResponse(errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.formatExceptionError, errorResponseHolder: ErrorResponseHolder(defaultMessage: 'format exception Error')));
     } catch (e) {
-      return Failure(ErrorResponse(
-          errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.undefined,
-          errorResponseHolder: ErrorResponseHolder(
-              defaultMessage: 'something went Wrong : $e')));
+      return Failure(ErrorResponse(errorHandelerFlutterEnum: ErrorHandelerFlutterEnum.undefined, errorResponseHolder: ErrorResponseHolder(defaultMessage: 'something went Wrong : $e')));
     }
   }
 }
